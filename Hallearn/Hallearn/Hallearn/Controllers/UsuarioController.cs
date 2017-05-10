@@ -8,6 +8,10 @@ using System.Web.Mvc;
 
 namespace Hallearn.Controllers
 {
+
+    /// <summary>
+    /// esta linea es para verificar que el git esta funcionando
+    /// </summary>
     [EnableCors(origins: "*", headers: "*", methods: "*")]
     public class UsuarioController : ApiController
     {
