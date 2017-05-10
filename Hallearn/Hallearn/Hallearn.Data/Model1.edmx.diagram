@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="970985df16964504b1e990fc22934d5e" Name="Diagram1">
+        <EntityTypeShape EntityType="db_HallearnModel.hlnciudad" Width="1.5" PointX="5.25" PointY="8.25" />
+        <EntityTypeShape EntityType="db_HallearnModel.hlnclase" Width="1.5" PointX="5.25" PointY="3.125" />
+        <EntityTypeShape EntityType="db_HallearnModel.hlnconfig" Width="1.5" PointX="5.75" PointY="0.75" />
+        <EntityTypeShape EntityType="db_HallearnModel.hlndepartamento" Width="1.5" PointX="3" PointY="8.25" />
+        <EntityTypeShape EntityType="db_HallearnModel.hlnmateria" Width="1.5" PointX="3.75" PointY="12" />
+        <EntityTypeShape EntityType="db_HallearnModel.hlnpais" Width="1.5" PointX="0.75" PointY="5.375" />
+        <EntityTypeShape EntityType="db_HallearnModel.hlntema" Width="1.5" PointX="6" PointY="11.75" />
+        <EntityTypeShape EntityType="db_HallearnModel.hlnusuario" Width="1.5" PointX="3" PointY="2.375" />
+        <EntityTypeShape EntityType="db_HallearnModel.hlnvideoclase" Width="1.5" PointX="10.5" PointY="3.875" />
+        <AssociationConnector Association="db_HallearnModel.fk_hlnciudad_hlndepartamentoid" />
+        <AssociationConnector Association="db_HallearnModel.fk_hlnclase_hlnusuarioid" />
+        <AssociationConnector Association="db_HallearnModel.fk_hlnvideoclase_hlnclaseid" />
+        <AssociationConnector Association="db_HallearnModel.fk_hlndepartamento_hlnpaisid" />
+        <AssociationConnector Association="db_HallearnModel.fk_hlntema_hlnmateriaid" />
+        <AssociationConnector Association="db_HallearnModel.fk_hlnusuario_hlnpaisid" />
+        <AssociationConnector Association="db_HallearnModel.fk_hlnvideoclase_hlnusuarioid" />
+        <EntityTypeShape EntityType="db_HallearnModel.hlnprogtema" Width="1.5" PointX="8.25" PointY="6.75" />
+        <AssociationConnector Association="db_HallearnModel.fk_hlnclase_hlnprogtemaid" />
+        <AssociationConnector Association="db_HallearnModel.fk_hlnhorariotema_hlnprofesorid" />
+        <AssociationConnector Association="db_HallearnModel.fk_hlnhorariotema_hlntemaid" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

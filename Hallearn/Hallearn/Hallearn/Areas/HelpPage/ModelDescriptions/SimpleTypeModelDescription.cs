@@ -1,0 +1,6 @@
+namespace Hallearn.Areas.HelpPage.ModelDescriptions
+{
+    public class SimpleTypeModelDescription : ModelDescription
+    {
+    }
+}
