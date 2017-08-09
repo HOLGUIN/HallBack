@@ -123,6 +123,14 @@ namespace Hallearn.Models
                 response.msj = "El username ya existe.";
                 return response;
             }
+            if (validarol(modelo))
+            {
+                response.valida = false;
+                response.modelo = modelo;
+                response.msj = "Debe seleccionar un rol para el usuario.";
+                return response;
+            }
+
 
             hlnusuario usuario = context.hlnusuario.Find(modelo.hlnusuarioid);
             usuario.activo = modelo.activo;
@@ -193,7 +201,13 @@ namespace Hallearn.Models
                 response.msj = "El username ya existe.";
                 return response;
             }
-
+            if(validarol(modelo))
+            {
+                response.valida = false;
+                response.modelo = modelo;
+                response.msj = "Debe seleccionar un rol para el usuario.";
+                return response;
+            }
 
             hlnusuario usuario = new hlnusuario()
             {
@@ -210,10 +224,10 @@ namespace Hallearn.Models
                 hlnpaisid = modelo.hlnpaisid,
                 hlndepartamentoid = modelo.hlndepartamentoid,
                 hlnciudadid = modelo.hlnciudadid,
-                alumno = true,
-                administrador = false,
-                profesor = false,
-                activo = true
+                alumno = modelo.alumno,
+                administrador = modelo.administrador,
+                profesor = modelo.profesor,
+                activo = modelo.activo
             };
             context.hlnusuario.Add(usuario);
             context.SaveChanges();
@@ -258,7 +272,13 @@ namespace Hallearn.Models
             return false;
         }
 
-        public bool validaContraseñas(usuario usuario)
+
+        /// <summary>
+        /// valida que las contraseñas coincidan para asegurarce de guardar la contraseña
+        /// </summary>
+        /// <param name="usuario"></param>
+        /// <returns></returns>
+        private bool validaContraseñas(usuario usuario)
         {
             usuario.password = ensure.CalculateMD5Hash(usuario.password);
             usuario.password2 = ensure.CalculateMD5Hash(usuario.password2);
@@ -269,7 +289,13 @@ namespace Hallearn.Models
             return false;
         }
 
-        public bool validaEdad(int edad)
+
+        /// <summary>
+        /// valida que la edad del usuario cumpla con el minimo de edad para poder registrarse
+        /// </summary>
+        /// <param name="edad"></param>
+        /// <returns></returns>
+        private bool validaEdad(int edad)
         {
             var config = context.hlnconfig.FirstOrDefault();
 
@@ -278,6 +304,25 @@ namespace Hallearn.Models
 
             return true;
         }
+
+
+        /// <summary>
+        /// valida que el usuario tenga por lo menos un rol
+        /// </summary>
+        /// <param name="usuario"></param>
+        /// <returns></returns>
+        private bool validarol(usuario usuario)
+        {
+
+            if(usuario.administrador == false && usuario.alumno == false && usuario.profesor == false)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+
 
     }
 
