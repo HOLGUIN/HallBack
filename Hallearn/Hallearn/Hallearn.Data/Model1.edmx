@@ -106,6 +106,8 @@
           <Property Name="profesor" Type="bool" />
           <Property Name="alumno" Type="bool" />
           <Property Name="descripcion" Type="varchar" MaxLength="100" />
+          <Property Name="password2" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="fechains" Type="date" />
         </EntityType>
         <EntityType Name="hlnvideoclase">
           <Key>
@@ -448,6 +450,8 @@
           <NavigationProperty Name="hlnvideoclase" Relationship="db_HallearnModel.fk_hlnvideoclase_hlnusuarioid" FromRole="hlnusuario" ToRole="hlnvideoclase" />
           <Property Name="descripcion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="hlnprogtema" Relationship="db_HallearnModel.fk_hlnhorariotema_hlnprofesorid" FromRole="hlnusuario" ToRole="hlnprogtema" />
+          <Property Name="password2" Type="String" Nullable="false" MaxLength="45" FixedLength="false" Unicode="false" />
+          <Property Name="fechains" Type="DateTime" />
         </EntityType>
         <EntityType Name="hlnvideoclase">
           <Key>
@@ -678,6 +682,8 @@
           <EntitySetMapping Name="hlnusuario">
             <EntityTypeMapping TypeName="db_HallearnModel.hlnusuario">
               <MappingFragment StoreEntitySet="hlnusuario">
+                <ScalarProperty Name="fechains" ColumnName="fechains" />
+                <ScalarProperty Name="password2" ColumnName="password2" />
                 <ScalarProperty Name="descripcion" ColumnName="descripcion" />
                 <ScalarProperty Name="alumno" ColumnName="alumno" />
                 <ScalarProperty Name="profesor" ColumnName="profesor" />

@@ -40,6 +40,8 @@ namespace Hallearn.Data
         public Nullable<bool> profesor { get; set; }
         public Nullable<bool> alumno { get; set; }
         public string descripcion { get; set; }
+        public string password2 { get; set; }
+        public Nullable<System.DateTime> fechains { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<hlnclase> hlnclase { get; set; }

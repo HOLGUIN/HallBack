@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="970985df16964504b1e990fc22934d5e" Name="Diagram1">
+      <Diagram DiagramId="970985df16964504b1e990fc22934d5e" Name="Diagram1" ZoomLevel="74">
         <EntityTypeShape EntityType="db_HallearnModel.hlnciudad" Width="1.5" PointX="5.25" PointY="8.25" />
         <EntityTypeShape EntityType="db_HallearnModel.hlnclase" Width="1.5" PointX="5.25" PointY="3.125" />
         <EntityTypeShape EntityType="db_HallearnModel.hlnconfig" Width="1.5" PointX="5.75" PointY="0.75" />
