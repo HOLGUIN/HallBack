@@ -2,6 +2,7 @@
 using System.Linq;
 using Hallearn.Data;
 using Hallearn.Utility;
+using System;
 
 namespace Hallearn.Models
 {
@@ -63,12 +64,13 @@ namespace Hallearn.Models
                 //departamento = getdepartamento(hlnusuario.hlndepartamentoid),
                 //ciudad = getciudad(hlnusuario.hlnciudadid),
                 hlnusuarioid = hlnusuario.hlnusuarioid,
-                password = ensure.CalculateMD5Hash(hlnusuario.password),
+                password = hlnusuario.password,
                 md5 = ensure.CalculateMD5Hash(hlnusuario.password),
                 administrador = hlnusuario.administrador.Value,
                 profesor = hlnusuario.profesor.Value,
                 alumno = hlnusuario.alumno.Value,
-                activo = hlnusuario.activo.Value
+                activo = hlnusuario.activo.Value,
+                password2 = hlnusuario.password2
             };
 
 
@@ -102,6 +104,8 @@ namespace Hallearn.Models
 
             response response = new response();
 
+            var new_password = modelo.password;
+     
             if (!validaContraseñas(modelo))
             {
                 response.valida = false;
@@ -133,6 +137,15 @@ namespace Hallearn.Models
 
 
             hlnusuario usuario = context.hlnusuario.Find(modelo.hlnusuarioid);
+
+            //si el nuevo password es diferente del md5 guardaro como password calcula de nuevo el md5 
+            if(usuario.password != new_password)
+            {
+                usuario.password = ensure.CalculateMD5Hash(new_password);
+                usuario.md5 = usuario.password;
+                usuario.password2 = usuario.password;
+            }
+
             usuario.activo = modelo.activo;
             usuario.administrador = modelo.administrador;
             usuario.alumno = modelo.alumno;
@@ -146,6 +159,7 @@ namespace Hallearn.Models
             usuario.hlnpaisid = modelo.hlnpaisid;
             usuario.nombres = modelo.nombres;
             usuario.descripcion = modelo.descripcion;
+            
             context.Entry(usuario).State = System.Data.Entity.EntityState.Modified;
             context.SaveChanges();
 
@@ -180,28 +194,28 @@ namespace Hallearn.Models
 
             response response = new response();
 
-            if(!validaContraseñas(modelo))
+            if (!validaContraseñas(modelo))
             {
                 response.valida = false;
                 response.modelo = modelo;
                 response.msj = "Las contraseñas no coinciden";
                 return response;
             }
-            if(!validaEdad(modelo.edad))
+            if (!validaEdad(modelo.edad))
             {
                 response.valida = false;
                 response.modelo = modelo;
                 response.msj = "La edad no es valida";
                 return response;
             }
-            if(validaUsername(modelo))
+            if (validaUsername(modelo))
             {
                 response.valida = false;
                 response.modelo = modelo;
                 response.msj = "El username ya existe.";
                 return response;
             }
-            if(validarol(modelo))
+            if (validarol(modelo))
             {
                 response.valida = false;
                 response.modelo = modelo;
@@ -227,7 +241,9 @@ namespace Hallearn.Models
                 alumno = modelo.alumno,
                 administrador = modelo.administrador,
                 profesor = modelo.profesor,
-                activo = modelo.activo
+                activo = modelo.activo,
+                password2 = ensure.CalculateMD5Hash(modelo.password2),
+                fechains = DateTime.Now
             };
             context.hlnusuario.Add(usuario);
             context.SaveChanges();
@@ -256,16 +272,16 @@ namespace Hallearn.Models
         {
             int unames = 0;
 
-            if(usuario.hlnusuarioid == 0)
+            if (usuario.hlnusuarioid == 0)
             {
                 unames = context.hlnusuario.Where(x => x.username.Contains(usuario.username)).Count();
             }
             else
             {
-                unames = context.hlnusuario.Where(x => x.username.Contains(usuario.username) && x.hlnusuarioid!=usuario.hlnusuarioid).Count();
+                unames = context.hlnusuario.Where(x => x.username.Contains(usuario.username) && x.hlnusuarioid != usuario.hlnusuarioid).Count();
             }
 
-            
+
             if (unames > 0)
                 return true;
 
@@ -314,7 +330,7 @@ namespace Hallearn.Models
         private bool validarol(usuario usuario)
         {
 
-            if(usuario.administrador == false && usuario.alumno == false && usuario.profesor == false)
+            if (usuario.administrador == false && usuario.alumno == false && usuario.profesor == false)
             {
                 return true;
             }
