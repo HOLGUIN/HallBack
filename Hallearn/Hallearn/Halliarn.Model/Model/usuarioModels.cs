@@ -105,7 +105,7 @@ namespace Hallearn.Models
             response response = new response();
 
             var new_password = modelo.password;
-     
+
             if (!validaContraseñas(modelo))
             {
                 response.valida = false;
@@ -139,7 +139,7 @@ namespace Hallearn.Models
             hlnusuario usuario = context.hlnusuario.Find(modelo.hlnusuarioid);
 
             //si el nuevo password es diferente del md5 guardaro como password calcula de nuevo el md5 
-            if(usuario.password != new_password)
+            if (usuario.password != new_password)
             {
                 usuario.password = ensure.CalculateMD5Hash(new_password);
                 usuario.md5 = usuario.password;
@@ -159,7 +159,7 @@ namespace Hallearn.Models
             usuario.hlnpaisid = modelo.hlnpaisid;
             usuario.nombres = modelo.nombres;
             usuario.descripcion = modelo.descripcion;
-            
+
             context.Entry(usuario).State = System.Data.Entity.EntityState.Modified;
             context.SaveChanges();
 
@@ -233,7 +233,7 @@ namespace Hallearn.Models
                 celular = modelo.celular,
                 correo = modelo.correo,
                 username = modelo.username,
-                password = modelo.password,
+                password = ensure.CalculateMD5Hash(modelo.password),
                 md5 = ensure.CalculateMD5Hash(modelo.password),
                 hlnpaisid = modelo.hlnpaisid,
                 hlndepartamentoid = modelo.hlndepartamentoid,
