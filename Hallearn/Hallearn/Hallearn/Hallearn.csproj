@@ -260,6 +260,7 @@
     <Compile Include="Controllers\PaisController.cs" />
     <Compile Include="Controllers\ProgramarController.cs" />
     <Compile Include="Controllers\ProgTemaController.cs" />
+    <Compile Include="Controllers\ServerwsController.cs" />
     <Compile Include="Controllers\TemaController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
@@ -314,6 +315,7 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Views\Config\" />
+    <Folder Include="Views\Serverws\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
