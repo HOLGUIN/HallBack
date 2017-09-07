@@ -110,28 +110,28 @@ namespace Hallearn.Models
             {
                 response.valida = false;
                 response.modelo = modelo;
-                response.msj = "Las contraseñas no coinciden";
+                response.msj = "LNG_MSJ_1";
                 return response;
             }
             if (!validaEdad(modelo.edad))
             {
                 response.valida = false;
                 response.modelo = modelo;
-                response.msj = "La edad no es valida";
+                response.msj = "LNG_MSJ_2";
                 return response;
             }
             if (validaUsername(modelo))
             {
                 response.valida = false;
                 response.modelo = modelo;
-                response.msj = "El username ya existe.";
+                response.msj = "LNG_MSJ_3";
                 return response;
             }
             if (validarol(modelo))
             {
                 response.valida = false;
                 response.modelo = modelo;
-                response.msj = "Debe seleccionar un rol para el usuario.";
+                response.msj = "LNG_MSJ_4";
                 return response;
             }
 
