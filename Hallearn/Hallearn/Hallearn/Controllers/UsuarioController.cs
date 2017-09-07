@@ -30,7 +30,7 @@ namespace Hallearn.Controllers
             }
             catch (Exception e)
             {
-                return Content(HttpStatusCode.BadRequest, "Debe ingresar los campos *");
+                return Content(HttpStatusCode.BadRequest, "LNG_MSJ_6");
             }
         }
 
@@ -43,7 +43,7 @@ namespace Hallearn.Controllers
                 var usuarios = up.getusuarios();
                 return Ok(new { usuarios = usuarios });
             }
-            catch (Exception e) { return Content(HttpStatusCode.NotFound, "Error en el proceso"); }
+            catch (Exception e) { return Content(HttpStatusCode.NotFound, "LNG_ERROR"); }
         }
 
         [System.Web.Http.HttpGet]
@@ -58,7 +58,7 @@ namespace Hallearn.Controllers
                 }
                 return Ok(modelo);
             }
-            catch { return Content(HttpStatusCode.NotFound, "Usuario no existe"); }
+            catch { return Content(HttpStatusCode.NotFound, ""); }
         }
 
         [System.Web.Http.HttpPut]
@@ -69,7 +69,7 @@ namespace Hallearn.Controllers
                 var response = up.putusuario(modelo);
                 return Ok(response);
             }
-            catch { return Content(HttpStatusCode.BadRequest, "Debe ingresar los campos *"); }
+            catch { return Content(HttpStatusCode.BadRequest, "LNG_MSJ_6"); }
         }
 
 
@@ -81,7 +81,7 @@ namespace Hallearn.Controllers
             if (response)
                 return Ok();
 
-            return Content(HttpStatusCode.BadRequest, "Error en proceso");
+            return Content(HttpStatusCode.BadRequest, "LNG_ERROR");
 
         }
 
