@@ -10,12 +10,15 @@ using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.OAuth;
 using Hallearn.Models;
+using Hallearn.Data;
+using Hallearn.Utility;
 
 namespace Hallearn.Providers
 {
     public class ApplicationOAuthProvider : OAuthAuthorizationServerProvider
     {
         private readonly string _publicClientId;
+        public db_HallearnEntities db = new db_HallearnEntities();
 
         public ApplicationOAuthProvider(string publicClientId)
         {
@@ -33,7 +36,11 @@ namespace Hallearn.Providers
 
             ApplicationUser user = await userManager.FindAsync(context.UserName, context.Password);
 
-            if (user == null)
+            MD5Hash secure = new MD5Hash();
+            string md5 = secure.CalculateMD5Hash(context.Password);
+            hlnusuario usuario = db.hlnusuario.Where(x=>x.username == context.UserName && x.password == md5).FirstOrDefault();
+
+            if (usuario == null)
             {
                 context.SetError("invalid_grant", "The user name or password is incorrect.");
                 return;
