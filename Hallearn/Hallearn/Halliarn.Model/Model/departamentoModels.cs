@@ -60,7 +60,7 @@ namespace Hallearn.Models
             if (!validaNomdepto(depto.nombredept, depto.hlnpaisid, depto.hlndepartamentoid))
             {
                 response.valida = false;
-                response.msj = "Ya existe un departamento con ese nombre para este pais.";
+                response.msj = "LNG_MSJ_8";
                 response.modelo = depto;
                 return response;
             }
@@ -88,7 +88,7 @@ namespace Hallearn.Models
             if (!validaNomdepto(depto.nombredept, depto.hlnpaisid, null))
             {
                 response.valida = false;
-                response.msj = "Ya existe un departamento con ese nombre para este pais.";
+                response.msj = "LNG_MSJ_8";
                 response.modelo = depto;
                 return response;
             }

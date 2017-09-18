@@ -71,7 +71,7 @@ namespace Hallearn.Models
             if (!validaNomciudad(ciudad.nombreciu, ciudad.hlndepartamentoid, ciudad.hlnciudadid))
             {
                 response.valida = false;
-                response.msj = "Ya existe un departamento con ese nombre para este pais.";
+                response.msj = "LNG_MSJ_9";
                 response.modelo = ciudad;
                 return response;
             }
@@ -104,7 +104,7 @@ namespace Hallearn.Models
             if (!validaNomciudad(ciudad.nombreciu, ciudad.hlndepartamentoid, null))
             {
                 response.valida = false;
-                response.msj = "Ya existe una ciudad con ese nombre para este deparatamento.";
+                response.msj = "LNG_MSJ_9";
                 response.modelo = ciudad;
                 return response;
             }

@@ -20,7 +20,7 @@ namespace Hallearn.Controllers
                 return Ok(modelo);
             }
             catch { }
-            return Content(HttpStatusCode.BadRequest, "Error en proceso");
+            return Content(HttpStatusCode.BadRequest, "LNG_ERROR");
         }
 
         [HttpGet]
@@ -39,7 +39,7 @@ namespace Hallearn.Controllers
             }
             catch(Exception e) { }
 
-            return Content(HttpStatusCode.BadRequest, "Error en proceso.");
+            return Content(HttpStatusCode.BadRequest, "LNG_ERROR");
         }
 
 
@@ -57,7 +57,7 @@ namespace Hallearn.Controllers
 
                 return Content(HttpStatusCode.BadRequest, response.msj);
             }
-            catch { return Content(HttpStatusCode.BadRequest, "Debe ingresar los campos *"); }
+            catch { return Content(HttpStatusCode.BadRequest, "LNG_MSJ_6"); }
         }
 
 
@@ -75,7 +75,7 @@ namespace Hallearn.Controllers
                 return Content(HttpStatusCode.BadRequest, response.msj);
             }
             catch { }
-            return Content(HttpStatusCode.BadRequest, "Debe ingresar los campos *");
+            return Content(HttpStatusCode.BadRequest, "LNG_MSJ_6");
         }
 
 
@@ -87,7 +87,7 @@ namespace Hallearn.Controllers
             if (response)
                 return Ok();
 
-            return Content(HttpStatusCode.BadRequest, "Error en proceso");
+            return Content(HttpStatusCode.BadRequest, "LNG_ERROR");
         }
 
     }

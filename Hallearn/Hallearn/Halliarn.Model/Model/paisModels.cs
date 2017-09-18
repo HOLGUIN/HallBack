@@ -51,7 +51,7 @@ namespace Hallearn.Models
             if (!validaNompais(pais.nombre, null))
             {
                 response.valida = false;
-                response.msj = "Ya existe un pais con ese nombre.";
+                response.msj = "LNG_MSJ_5";
                 response.modelo = pais;
                 return response;
             }
@@ -80,7 +80,7 @@ namespace Hallearn.Models
             if (!validaNompais(pais.nombre, pais.hlnpaisid))
             {
                 response.valida = false;
-                response.msj = "Ya existe una materia con ese nombre.";
+                response.msj = "LNG_MSJ_5";
                 response.modelo = pais;
                 return response;
             }
