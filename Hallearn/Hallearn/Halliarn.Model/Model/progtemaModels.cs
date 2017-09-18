@@ -75,7 +75,7 @@ namespace Hallearn.Model.Model
             if (progtema.hf.HasValue && progtema.hi > progtema.hf)
             {
                 response.valida = false;
-                response.msj = "La hora inicial debe ser menor a la final.";
+                response.msj = "LNG_MSJ_7";
                 response.modelo = progtema;
                 return response;
             }
@@ -111,7 +111,7 @@ namespace Hallearn.Model.Model
             if (progtema.hf.HasValue && progtema.hi > progtema.hf)
             {
                 response.valida = false;
-                response.msj = "La hora inicial debe ser menor a la final.";
+                response.msj = "LNG_MSJ_7";
                 response.modelo = progtema;
                 return response;
             }

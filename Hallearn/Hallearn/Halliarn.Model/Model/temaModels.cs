@@ -63,7 +63,7 @@ namespace Hallearn.Models
             if (!validaNomtema(tema.nombre, tema.hlntemaid))
             {
                 response.valida = false;
-                response.msj = "Ya existe un tema con ese nombre.";
+                response.msj = "LNG_MSJ_5";
                 response.modelo = tema;
                 return response;
             }
@@ -89,31 +89,13 @@ namespace Hallearn.Models
         {
             response response = new response();
 
-            //if (string.IsNullOrEmpty(tema.nombre))
-            //{
-            //    response.valida = false;
-            //    response.msj = "Debe ingresar un nombre para el tema.";
-            //    response.modelo = tema;
-            //    return response;
-            //}
-
             if (!validaNomtema(tema.nombre, null))
             {
                 response.valida = false;
-                response.msj = "Ya existe un tema con ese nombre.";
+                response.msj = "LNG_MSJ_5";
                 response.modelo = tema;
                 return response;
             }
-
-            //if (tema.hlnmateriaid == 0)
-            //{
-            //    response.valida = false;
-            //    response.msj = "Debe seleccionar una materia.";
-            //    response.modelo = tema;
-            //    return response;
-            //}
-
-
 
             hlntema modelo = new hlntema()
             {

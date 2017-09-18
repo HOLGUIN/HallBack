@@ -79,7 +79,7 @@ namespace Hallearn.Models
             if (!validaNommateria(materia.nombre, materia.hlnmateriaid))
             {
                 response.valida = false;
-                response.msj = "Ya existe una materia con ese nombre.";
+                response.msj = "LNG_MSJ_5";
                 response.modelo = materia;
                 return response;
             }
