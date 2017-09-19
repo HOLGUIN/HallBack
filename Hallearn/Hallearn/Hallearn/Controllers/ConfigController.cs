@@ -18,14 +18,10 @@ namespace Hallearn.Controllers
             {
                 var config = cp.getconfig();
                 return Ok(config);
-
             }
             catch { }
-
-            return Content(HttpStatusCode.BadRequest, "Error en proceso");
+            return Content(HttpStatusCode.BadRequest, "LNG_ERROR");
         }
-
-
 
         [HttpPut]
         public IHttpActionResult put(config config)
@@ -36,9 +32,7 @@ namespace Hallearn.Controllers
                 return Ok(config);
             }
             catch { }
-            return Content(HttpStatusCode.BadRequest, "Error en proceso");
+            return Content(HttpStatusCode.BadRequest, "LNG_ERROR");
         }
-
-
     }
 }

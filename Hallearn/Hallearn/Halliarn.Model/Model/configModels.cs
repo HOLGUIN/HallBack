@@ -39,10 +39,19 @@ namespace Hallearn.Model.Model
             try
             {
                 var modelo = context.hlnconfig.Find(config.hlnconfigid);
-                modelo.edad = config.edad;
-                context.Entry(modelo).State = System.Data.Entity.EntityState.Modified;
-                context.SaveChanges();
 
+                if(modelo == null)
+                {
+                    hlnconfig configm = new hlnconfig();
+                    configm.edad = config.edad;
+                    context.hlnconfig.Add(configm);
+                }
+                else
+                {
+                    modelo.edad = config.edad;
+                    context.Entry(modelo).State = System.Data.Entity.EntityState.Modified; 
+                }
+                context.SaveChanges();
                 return config;
             }
             catch { }
