@@ -72,6 +72,17 @@ namespace Hallearn.Controllers
             catch { return Content(HttpStatusCode.BadRequest, "LNG_MSJ_6"); }
         }
 
+        [System.Web.Http.HttpPut]
+        public IHttpActionResult put(string password, int hlnusuarioid)
+        {
+            try
+            {
+                up.ChangePassword(password, hlnusuarioid);
+                return Ok();
+            }
+            catch { return Content(HttpStatusCode.BadRequest, "Error"); }
+        }
+
 
         [System.Web.Http.HttpDelete]
         public IHttpActionResult delete(usuario modelo)
