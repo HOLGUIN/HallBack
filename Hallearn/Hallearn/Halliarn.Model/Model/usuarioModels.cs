@@ -130,6 +130,7 @@ namespace Hallearn.Models
 
             usuario.activo = modelo.activo;
             usuario.administrador = modelo.administrador;
+            usuario.profesor = modelo.profesor;
             usuario.alumno = modelo.alumno;
             usuario.apellidos = modelo.apellidos;
             usuario.celular = modelo.celular;
@@ -142,7 +143,8 @@ namespace Hallearn.Models
             usuario.nombres = modelo.nombres;
             usuario.descripcion = modelo.descripcion;
             usuario.username = modelo.username;
-
+           
+          
             context.Entry(usuario).State = System.Data.Entity.EntityState.Modified;
             context.SaveChanges();
 

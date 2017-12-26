@@ -80,7 +80,7 @@ namespace Hallearn.Model.Model
                 return response;
             }
 
-            progtema = cantHoras(progtema);
+            progtema.canthoras = calculeHoras.CalcularHoras(progtema.hi, progtema.hf.Value);
 
             var modelo = context.hlnprogtema.Find(progtema.hlnprogtemaid);
 
@@ -116,7 +116,7 @@ namespace Hallearn.Model.Model
                 return response;
             }
 
-            progtema = cantHoras(progtema);
+            progtema.canthoras = calculeHoras.CalcularHoras(progtema.hi, progtema.hf.Value);
 
             hlnprogtema modelo = new hlnprogtema()
             {
@@ -155,18 +155,6 @@ namespace Hallearn.Model.Model
             return false;
         }
 
-        public progtema cantHoras(progtema progtema)
-        {
-            if(progtema.hf.HasValue)
-            {
-                TimeSpan ch = progtema.hf.Value - progtema.hi;
-                progtema.canthoras = Convert.ToDecimal(ch.TotalHours);
-                return progtema;
-            }
-
-            progtema.canthoras = 0;
-            return progtema;
-        }
 
     }
 }

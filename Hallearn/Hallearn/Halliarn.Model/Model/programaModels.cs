@@ -20,6 +20,7 @@ namespace Halliarn.Model.Model
         public string tema { get; set; }
         public string desctema { get; set; }
         public decimal preciohora { get; set; }
+        public int hlnprogtemaid { get; set; }
         public List<horario> horarios { get; set; }
     }
 

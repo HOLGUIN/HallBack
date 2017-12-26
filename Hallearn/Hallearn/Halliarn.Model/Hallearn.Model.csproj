@@ -61,6 +61,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Model\ciudadModels.cs" />
+    <Compile Include="Model\claseModels.cs" />
     <Compile Include="Model\configModels.cs" />
     <Compile Include="Model\departamentoModels.cs" />
     <Compile Include="Model\homeModels.cs" />
@@ -70,6 +71,7 @@
     <Compile Include="Model\programaModels.cs" />
     <Compile Include="Model\progtemaModels.cs" />
     <Compile Include="Model\websocket.cs" />
+    <Compile Include="Utility\calculeHoras.cs" />
     <Compile Include="Utility\MD5Hash.cs" />
     <Compile Include="Model\paisModels.cs" />
     <Compile Include="Utility\responseModels.cs" />
