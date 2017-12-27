@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using Hallearn.Data;
-using Hallearn.Models;
 using Hallearn.Utility;
 
 namespace Hallearn.Model.Model

@@ -4,7 +4,8 @@ using Hallearn.Data;
 using Hallearn.Utility;
 using System;
 
-namespace Hallearn.Models
+
+namespace Hallearn.Model.Model
 {
     public class usuario
     {

@@ -3,7 +3,7 @@ using System.Linq;
 using Hallearn.Data;
 using Hallearn.Utility;
 
-namespace Hallearn.Models
+namespace Hallearn.Model.Model
 {
     public class departamento
     {

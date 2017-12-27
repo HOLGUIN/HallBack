@@ -61,6 +61,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Model\ciudadModels.cs" />
+    <Compile Include="Model\claseasgModels.cs" />
     <Compile Include="Model\claseModels.cs" />
     <Compile Include="Model\configModels.cs" />
     <Compile Include="Model\departamentoModels.cs" />

@@ -1,6 +1,7 @@
 ﻿using System.Web.Mvc;
+using Hallearn.Utility;
 
-namespace Hallearn.Models
+namespace Hallearn.Model.Model
 {
     public class Lista
     {
@@ -30,27 +31,27 @@ namespace Hallearn.Models
 
             if (paises.HasValue && paises.Value)
             {
-                Listas.paises = new SelectList(Utility.customList.getPaises(), "Value", "Text", null);
+                Listas.paises = new SelectList(Hallearn.Utility.customList.getPaises(), "Value", "Text", null);
             }
             if (depts.HasValue && depts.Value)
             {
-                Listas.depts = new SelectList(Utility.customList.getDepartamentos(), "Value", "Text", "Group", null, null);
+                Listas.depts = new SelectList(Hallearn.Utility.customList.getDepartamentos(), "Value", "Text", "Group", null, null);
             }
             if (ciudades.HasValue && ciudades.Value)
             {
-                Listas.ciudades = new SelectList(Utility.customList.getCiudades(), "Value", "Text", "Group", null, null);
+                Listas.ciudades = new SelectList(Hallearn.Utility.customList.getCiudades(), "Value", "Text", "Group", null, null);
             }
             if (materias.HasValue && materias.Value)
             {
-                Listas.materias = new SelectList(Utility.customList.getMaterias(), "Value", "Text", null);
+                Listas.materias = new SelectList(Hallearn.Utility.customList.getMaterias(), "Value", "Text", null);
             }
             if (profes.HasValue && profes.Value)
             {
-                Listas.profesores = new SelectList(Utility.customList.getProfesores(), "Value", "Text", null);
+                Listas.profesores = new SelectList(Hallearn.Utility.customList.getProfesores(), "Value", "Text", null);
             }
             if (temas.HasValue && temas.Value)
             {
-                Listas.temas = new SelectList(Utility.customList.getTemas(), "Value", "Text", "Group", null, null);
+                Listas.temas = new SelectList(Hallearn.Utility.customList.getTemas(), "Value", "Text", "Group", null, null);
             }
 
             return Listas;

@@ -9,7 +9,7 @@ using System.Threading;
 using System.Text.RegularExpressions;
 using System.Security.Cryptography;
 
-namespace Hallearn.Models
+namespace Hallearn.Model.Model
 {
     public class websocket
     {

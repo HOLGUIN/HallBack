@@ -1,7 +1,7 @@
 ﻿using System.Net;
 using System.Web.Http;
-using Hallearn.Models;
 using System.Web.Http.Cors;
+using Hallearn.Model.Model;
 
 namespace Hallearn.Controllers
 {

@@ -1,5 +1,4 @@
-﻿
-using Hallearn.Models;
+﻿using Hallearn.Model.Model;
 using System;
 using System.Net;
 using System.Web.Http;

@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Hallearn.Data;
-using Halliarn.Model.Model;
 
-namespace Hallearn.Models
+namespace Hallearn.Model.Model
 {
 
 

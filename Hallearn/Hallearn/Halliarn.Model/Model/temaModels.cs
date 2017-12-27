@@ -7,7 +7,7 @@ using System.Web.Mvc;
 using Hallearn.Data;
 using Hallearn.Model.Model;
 
-namespace Hallearn.Models
+namespace Hallearn.Model.Model
 {
     public class tema
     {

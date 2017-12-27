@@ -1,6 +1,6 @@
 ﻿using Hallearn.Data;
 using Hallearn.Model.Model;
-using Hallearn.Models;
+
 using Hallearn.Utility;
 using System;
 using System.Collections.Generic;
@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Halliarn.Model.Model
+namespace Hallearn.Model.Model
 {
 
     public class clase

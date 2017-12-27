@@ -253,6 +253,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CiudadController.cs" />
     <Compile Include="Controllers\ClaseController.cs" />
+    <Compile Include="Controllers\ClasesAsgController.cs" />
     <Compile Include="Controllers\ConfigController.cs" />
     <Compile Include="Controllers\DepartamentoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -262,7 +263,6 @@
     <Compile Include="Controllers\PaisController.cs" />
     <Compile Include="Controllers\ProgramarController.cs" />
     <Compile Include="Controllers\ProgTemaController.cs" />
-    <Compile Include="Controllers\ServerwsController.cs" />
     <Compile Include="Controllers\TemaController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
