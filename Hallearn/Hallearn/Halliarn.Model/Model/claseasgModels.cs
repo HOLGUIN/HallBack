@@ -21,7 +21,7 @@ namespace Hallearn.Model.Model
 
         public List<claseasg> getClasesasg(int hlnprogtemaid, DateTime fecha)
         {
-            var claseasg = context.hlnclase.Where(x => x.hlnprogtemaid == hlnprogtemaid && x.fecha == fecha)
+            var claseasg = context.hlnclase.Where(x => x.hlnprogtemaid == hlnprogtemaid && x.fecha == fecha.Date)
                 .Select(x => new claseasg
                 {
                     horaini = x.horaini,
