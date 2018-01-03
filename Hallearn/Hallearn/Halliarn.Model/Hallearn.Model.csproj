@@ -71,7 +71,6 @@
     <Compile Include="Model\materiaModels.cs" />
     <Compile Include="Model\programaModels.cs" />
     <Compile Include="Model\progtemaModels.cs" />
-    <Compile Include="Model\websocket.cs" />
     <Compile Include="Utility\calculeHoras.cs" />
     <Compile Include="Utility\MD5Hash.cs" />
     <Compile Include="Model\paisModels.cs" />

@@ -23,5 +23,19 @@ namespace Hallearn.Controllers
             catch (Exception e) { }
             return Content(HttpStatusCode.BadRequest, "LNG_ERROR");
         }
+
+
+        [HttpGet]
+        public IHttpActionResult getlt(int hlnprogtemaidlt, DateTime fecha)
+        {
+            try
+            {
+                var modelo = cp.getClass(hlnprogtemaidlt, fecha);
+                return Ok(modelo);
+            }
+            catch (Exception e) { }
+            return Content(HttpStatusCode.BadRequest, "LNG_ERROR");
+        }
+
     }
 }
