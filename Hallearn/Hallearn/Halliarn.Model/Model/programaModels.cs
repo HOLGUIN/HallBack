@@ -29,15 +29,12 @@ namespace Hallearn.Model.Model
         public TimeSpan horaini { get; set; }
         public TimeSpan? horafin { get; set; }
         public int hlnprogtemaid { get; set; }
-        public List<linetime> linetime { get; set; }
     }
 
     public class programaProcesos
     {
 
-        clasesasgProcesos cp = new clasesasgProcesos();
         db_HallearnEntities context = new db_HallearnEntities();
-
 
         public List<matprogramas> getProgramas()
         {
@@ -76,7 +73,6 @@ namespace Hallearn.Model.Model
                         h.hlnprogtemaid = horario.hlnprogtemaid;
                         h.horaini = horario.horaini;
                         h.horafin = horario.horafin;
-                        h.linetime = cp.getClass(h.hlnprogtemaid, DateTime.Now);
                         t.horarios.Add(h);
                     }
 
