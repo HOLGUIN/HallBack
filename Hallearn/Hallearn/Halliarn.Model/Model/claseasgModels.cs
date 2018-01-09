@@ -9,6 +9,7 @@ namespace Hallearn.Model.Model
 {
     public class claseasg
     {
+        public bool busy { get; set; }
         public TimeSpan horaini { get; set; }
         public TimeSpan horafin { get; set; }
     }
@@ -26,16 +27,59 @@ namespace Hallearn.Model.Model
 
         db_HallearnEntities context = new db_HallearnEntities();
 
-        public List<claseasg> getClasesasg(int hlnprogtemaid, DateTime fecha)
+        private List<claseasg> getbusyclass(int hlnprogtemaid, DateTime fecha)
         {
             var claseasg = context.hlnclase.Where(x => x.hlnprogtemaid == hlnprogtemaid && x.fecha == fecha.Date)
                 .Select(x => new claseasg
                 {
                     horaini = x.horaini,
-                    horafin = x.horafin
+                    horafin = x.horafin,
+                    busy = true
                 }).ToList();
 
-            return claseasg.OrderBy(x=>x.horaini).ToList();
+            return claseasg;
+        }
+
+        public List<claseasg> getClasesasg(int hlnprogtemaid, DateTime fecha)
+        {
+            var claseasg = getbusyclass(hlnprogtemaid, fecha.Date);
+
+            var aux = new List<claseasg>();
+
+            var progtema = context.hlnprogtema.Find(hlnprogtemaid);
+
+            TimeSpan time1 = TimeSpan.FromHours(1);
+            List<claseasg> allclass = new List<Model.claseasg>();
+            for (TimeSpan i = progtema.horaini; i < progtema.horafin; i = i.Add(time1))
+            {
+                claseasg modelo = new Model.claseasg()
+                {
+                    horaini = i,
+                    horafin = i.Add(time1),
+                    busy = false
+                };
+                aux.Add(modelo);
+            }
+
+
+            if (claseasg.Count() > 0)
+            {
+                foreach (var item in claseasg)
+                {
+                   // aux.Where(x => x.horaini >= item.horaini && x.horafin <= item.horafin).ToList();
+                    foreach (var a in aux)
+                    {
+                        if (a.horaini >= item.horaini && a.horafin <= item.horafin)
+                        {
+                            a.busy = item.busy;
+                        }
+                        
+                    }
+
+                }
+            }
+
+            return aux.OrderBy(x => x.horaini).ToList();
         }
 
 
@@ -49,7 +93,7 @@ namespace Hallearn.Model.Model
             string medium_left = "medium_left ";
 
             var hlnprograma = context.hlnprogtema.Find(hlnprogtemaid);
-            var clasesprog = getClasesasg(hlnprogtemaid, fecha);
+            var clasesprog = getbusyclass(hlnprogtemaid, fecha);
             List<linetime> modelo = new List<linetime>();
 
             TimeSpan? aux = null;
@@ -65,7 +109,7 @@ namespace Hallearn.Model.Model
                 {
                     if (i == item.horaini)
                     {
-                        if(aux != null && aux == item.horaini)
+                        if (aux != null && aux == item.horaini)
                         {
                             lt.class_ball = inactive_start;
                             lt.class_line = inactive;
@@ -74,7 +118,7 @@ namespace Hallearn.Model.Model
                         {
                             lt.class_ball = medium_rigth;
                             lt.class_line = active;
-                        }            
+                        }
                     }
                     else if (i == item.horafin)
                     {
