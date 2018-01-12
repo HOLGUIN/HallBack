@@ -18,7 +18,7 @@ namespace Hallearn.Controllers
             return Ok(response);
         }
 
-        [HttpGet]
+        [System.Web.Http.HttpGet]
         public IHttpActionResult get(int alumnoid)
         {
             var clases = cp.getClases(alumnoid);

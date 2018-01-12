@@ -23,6 +23,26 @@ namespace Hallearn.Model.Model
         public int hlnusuarioid { get; set; }
         public int profesorid { get; set; }
         public decimal precio { get; set; }
+        public int hlnmateriaid { get; set; }
+        public int hlntemaid { get; set; }
+    }
+
+    public class clases_lista
+    {
+        public List<clase> clases_activas { get; set; }
+        public List<clases_vistas> clases_vistas { get; set; }
+    }
+
+    public class clases_vistas
+    {
+        public string materia { get; set; }
+        public List<clases_temas> temas { get; set; }
+    }
+
+    public class clases_temas
+    {
+        public string tema { get; set; }
+        public List<clase> clases { get; set; }
     }
 
     public class claseProcesos
@@ -62,9 +82,12 @@ namespace Hallearn.Model.Model
             return r;
         }
 
-        public List<clase> getClases(int hlnusuarioid)
+        public clases_lista getClases(int hlnusuarioid)
         {
-            var clases = context.hlnclase.Where(x=>x.hlnusuarioid == hlnusuarioid).Select(x => new clase
+            clases_lista modelo = new clases_lista();
+            modelo.clases_vistas = new List<clases_vistas>();
+
+            var clases = context.hlnclase.Include("hlnprogtema").Where(x => x.hlnusuarioid == hlnusuarioid).Select(x => new clase
             {
                 hlnclaseid = x.hlnclaseid,
                 horafin = x.horafin,
@@ -74,10 +97,40 @@ namespace Hallearn.Model.Model
                 calificacion = x.calificacion,
                 profesorid = x.profesorid,
                 hlnprogtemaid = x.hlnprogtemaid,
-                precio = x.precio
+                precio = x.precio,
+                hlnmateriaid = x.hlnprogtema.hlntema.hlnmateriaid,
+                hlntemaid = x.hlnprogtema.hlntemaid
             }).ToList();
 
-            return clases;
+            modelo.clases_activas = clases.Where(x => x.fecha > DateTime.Now).ToList();
+
+            var materias = clases.Where(x => x.fecha < DateTime.Now).Select(x => x.hlnmateriaid).Distinct();
+            db_HallearnEntities db2 = new db_HallearnEntities();
+            foreach (var item in materias)
+            {
+                var temas = db2.hlntema.Where(x => x.hlnmateriaid == item).ToList();
+                clases_vistas cv = new clases_vistas();
+                cv.materia = db2.hlnmateria.Find(Convert.ToSByte(item)).nombre;
+                cv.temas = new List<clases_temas>();
+                foreach (var t in temas)
+                {
+                    var tems = clases.Where(x => x.hlntemaid == t.hlntemaid).ToList();
+
+                    if(tems.Count() >0)
+                    {
+                        clases_temas ct = new clases_temas()
+                        {
+                            tema = t.nombre,
+                            clases = tems
+                        };
+                        cv.temas.Add(ct);
+                    }
+                }
+                modelo.clases_vistas.Add(cv);
+            }
+
+            db2.Dispose();
+            return modelo;
 
         }
 
