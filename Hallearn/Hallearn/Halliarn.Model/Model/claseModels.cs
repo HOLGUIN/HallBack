@@ -11,25 +11,28 @@ using System.Threading.Tasks;
 namespace Hallearn.Model.Model
 {
 
-    public class clase
+    public class clase : clase_basic
     {
-        public int hlnclaseid { get; set; }
         public TimeSpan horaini { get; set; }
         public TimeSpan horafin { get; set; }
-        public decimal canthoras { get; set; }
         public int? calificacion { get; set; }
         public int hlnprogtemaid { get; set; }
-        public DateTime fecha { get; set; }
         public int hlnusuarioid { get; set; }
         public int profesorid { get; set; }
         public decimal precio { get; set; }
+    }
+
+    public class clase_basic
+    {
+        public int hlnclaseid { get; set; }
+        public decimal canthoras { get; set; }
+        public DateTime fecha { get; set; }
         public int hlnmateriaid { get; set; }
         public int hlntemaid { get; set; }
     }
 
     public class clases_lista
     {
-        public List<clase> clases_activas { get; set; }
         public List<clases_vistas> clases_vistas { get; set; }
     }
 
@@ -42,12 +45,24 @@ namespace Hallearn.Model.Model
     public class clases_temas
     {
         public string tema { get; set; }
-        public List<clase> clases { get; set; }
+        public string css_class { get; set; }
+        public List<clase_basic> clases { get; set; }
     }
 
     public class claseProcesos
     {
         db_HallearnEntities context = new db_HallearnEntities();
+        private List<string> css_class = new List<string>()
+        {
+            "dark-grey",
+            "dark-lime",
+            "dark-orange",
+            "dark-teal",
+            "dark-amber",
+            "dark-brown",
+            "dark-indigo",
+            "dark-pink"
+        };
 
         public response postClase(clase modelo)
         {
@@ -86,25 +101,19 @@ namespace Hallearn.Model.Model
         {
             clases_lista modelo = new clases_lista();
             modelo.clases_vistas = new List<clases_vistas>();
-
-            var clases = context.hlnclase.Include("hlnprogtema").Where(x => x.hlnusuarioid == hlnusuarioid).Select(x => new clase
+            // Random rmdn = new Random();
+            var clases = context.hlnclase.Include("hlnprogtema").Where(x => x.hlnusuarioid == hlnusuarioid).Select(x => new clase_basic
             {
                 hlnclaseid = x.hlnclaseid,
-                horafin = x.horafin,
-                horaini = x.horaini,
-                fecha = x.fecha,
                 canthoras = x.canthoras,
-                calificacion = x.calificacion,
-                profesorid = x.profesorid,
-                hlnprogtemaid = x.hlnprogtemaid,
-                precio = x.precio,
+                fecha = x.fecha,
                 hlnmateriaid = x.hlnprogtema.hlntema.hlnmateriaid,
-                hlntemaid = x.hlnprogtema.hlntemaid
+                hlntemaid = x.hlnprogtema.hlntema.hlntemaid
             }).ToList();
 
-            modelo.clases_activas = clases.Where(x => x.fecha > DateTime.Now).ToList();
+           // modelo.clases_activas = clases.Where(x => x.fecha > DateTime.Now).ToList();
 
-            var materias = clases.Where(x => x.fecha < DateTime.Now).Select(x => x.hlnmateriaid).Distinct();
+            var materias = clases.Where(x => x.fecha < DateTime.Now.Date).Select(x => x.hlnmateriaid).Distinct();
             db_HallearnEntities db2 = new db_HallearnEntities();
             foreach (var item in materias)
             {
@@ -116,13 +125,16 @@ namespace Hallearn.Model.Model
                 {
                     var tems = clases.Where(x => x.hlntemaid == t.hlntemaid).ToList();
 
-                    if(tems.Count() >0)
+                    if (tems.Count() > 0)
                     {
                         clases_temas ct = new clases_temas()
                         {
                             tema = t.nombre,
                             clases = tems
                         };
+
+                       // ct.css_class = css_class[rmdn.Next(css_class.Count())];
+
                         cv.temas.Add(ct);
                     }
                 }
