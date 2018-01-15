@@ -29,15 +29,43 @@ namespace Hallearn.Model.Model
 
         private List<claseasg> getbusyclass(int hlnprogtemaid, DateTime fecha)
         {
-            var claseasg = context.hlnclase.Where(x => x.hlnprogtemaid == hlnprogtemaid && x.fecha == fecha.Date)
-                .Select(x => new claseasg
-                {
-                    horaini = x.horaini,
-                    horafin = x.horafin,
-                    busy = true
-                }).ToList();
+            var claseasgs = new List<claseasg>();
+            if (fecha.Date == DateTime.Now.Date)
+            {
+                var progtema = context.hlnprogtema.Find(hlnprogtemaid);
+                claseasg ca = new claseasg();
+                DateTime f = RoundUp(DateTime.Now, TimeSpan.FromHours(1));
+                ca.horaini = progtema.horaini;
+                ca.horafin = f.TimeOfDay;
+                ca.busy = true;
+                claseasgs.Add(ca);
 
-            return claseasg;
+                claseasgs.AddRange(context.hlnclase.Where(x => x.hlnprogtemaid == hlnprogtemaid && x.fecha == fecha.Date && x.horaini >= ca.horafin)
+                 .Select(x => new claseasg
+                 {
+                     horaini = x.horaini,
+                     horafin = x.horafin,
+                     busy = true
+                 }).ToList());
+            }
+            else
+            {
+                claseasgs = context.hlnclase.Where(x => x.hlnprogtemaid == hlnprogtemaid && x.fecha == fecha.Date)
+                 .Select(x => new claseasg
+                 {
+                     horaini = x.horaini,
+                     horafin = x.horafin,
+                     busy = true
+                 }).ToList();
+            }
+
+            return claseasgs;
+        }
+
+
+        DateTime RoundUp(DateTime dt, TimeSpan d)
+        {
+            return new DateTime(((dt.Ticks + d.Ticks - 1) / d.Ticks) * d.Ticks);
         }
 
         public List<claseasg> getClasesasg(int hlnprogtemaid, DateTime fecha)
@@ -66,14 +94,14 @@ namespace Hallearn.Model.Model
             {
                 foreach (var item in claseasg)
                 {
-                   // aux.Where(x => x.horaini >= item.horaini && x.horafin <= item.horafin).ToList();
+                    // aux.Where(x => x.horaini >= item.horaini && x.horafin <= item.horafin).ToList();
                     foreach (var a in aux)
                     {
                         if (a.horaini >= item.horaini && a.horafin <= item.horafin)
                         {
                             a.busy = item.busy;
                         }
-                        
+
                     }
 
                 }
