@@ -97,21 +97,51 @@ namespace Hallearn.Model.Model
             return r;
         }
 
+        public List<clase_basic> getClasesActivas(int hlnusuarioid)
+        {
+            var date_aux = DateTime.Now.Date;
+            var clases = context.hlnclase.Include("hlnprogtema").Where(x => x.hlnusuarioid == hlnusuarioid && x.fecha >= date_aux)
+                .Select(x => new clase_basic
+                {
+                    hlnclaseid = x.hlnclaseid,
+                    canthoras = x.canthoras,
+                    fecha = x.fecha,
+                    hlnmateriaid = x.hlnprogtema.hlntema.hlnmateriaid,
+                    hlntemaid = x.hlnprogtema.hlntema.hlntemaid
+                }).OrderBy(x => x.fecha).ToList();
+            return clases;
+        }
+
+        public List<clase_basic> getClasesprof(int hlnprofesorid)
+        {
+            var date_aux = DateTime.Now.Date;
+            var clases = context.hlnclase.Include("hlnprogtema").Where(x => x.profesorid == hlnprofesorid && x.fecha >= date_aux)
+                .Select(x => new clase_basic
+                {
+                    hlnclaseid = x.hlnclaseid,
+                    canthoras = x.canthoras,
+                    fecha = x.fecha,
+                    hlnmateriaid = x.hlnprogtema.hlntema.hlnmateriaid,
+                    hlntemaid = x.hlnprogtema.hlntema.hlntemaid
+                }).OrderBy(x => x.fecha).ToList();
+            return clases;
+        }
+
         public clases_lista getClases(int hlnusuarioid)
         {
             clases_lista modelo = new clases_lista();
             modelo.clases_vistas = new List<clases_vistas>();
             // Random rmdn = new Random();
-            var clases = context.hlnclase.Include("hlnprogtema").Where(x => x.hlnusuarioid == hlnusuarioid).Select(x => new clase_basic
-            {
-                hlnclaseid = x.hlnclaseid,
-                canthoras = x.canthoras,
-                fecha = x.fecha,
-                hlnmateriaid = x.hlnprogtema.hlntema.hlnmateriaid,
-                hlntemaid = x.hlnprogtema.hlntema.hlntemaid
-            }).ToList();
-
-           // modelo.clases_activas = clases.Where(x => x.fecha > DateTime.Now).ToList();
+            var date_aux = DateTime.Now.Date;
+            var clases = context.hlnclase.Include("hlnprogtema").Where(x => x.hlnusuarioid == hlnusuarioid && x.fecha < date_aux)
+                .Select(x => new clase_basic
+                {
+                    hlnclaseid = x.hlnclaseid,
+                    canthoras = x.canthoras,
+                    fecha = x.fecha,
+                    hlnmateriaid = x.hlnprogtema.hlntema.hlnmateriaid,
+                    hlntemaid = x.hlnprogtema.hlntema.hlntemaid
+                }).OrderBy(x => x.fecha).ToList();
 
             var materias = clases.Where(x => x.fecha < DateTime.Now.Date).Select(x => x.hlnmateriaid).Distinct();
             db_HallearnEntities db2 = new db_HallearnEntities();
@@ -133,11 +163,12 @@ namespace Hallearn.Model.Model
                             clases = tems
                         };
 
-                       // ct.css_class = css_class[rmdn.Next(css_class.Count())];
+                        // ct.css_class = css_class[rmdn.Next(css_class.Count())];
 
                         cv.temas.Add(ct);
                     }
                 }
+
                 modelo.clases_vistas.Add(cv);
             }
 

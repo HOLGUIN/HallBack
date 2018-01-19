@@ -33,37 +33,81 @@ namespace Hallearn.Model.Model
             if (fecha.Date == DateTime.Now.Date)
             {
                 var progtema = context.hlnprogtema.Find(hlnprogtemaid);
-                claseasg ca = new claseasg();
                 DateTime f = RoundUp(DateTime.Now, TimeSpan.FromHours(1));
-                ca.horaini = progtema.horaini;
-                ca.horafin = f.TimeOfDay;
-                ca.busy = true;
-                claseasgs.Add(ca);
+                claseasg ca = null;
+                bool process = false;
+                if (progtema.horaini < f.TimeOfDay)
+                {
+                    ca = new claseasg();
+                    ca.horaini = progtema.horaini;
+                    if (progtema.horafin < f.TimeOfDay)
+                    {
+                        ca.horafin = progtema.horafin.Value;
+                    }
+                    else
+                    { 
+                        ca.horafin = f.TimeOfDay;
+                        process = true;
+                    }
 
-                claseasgs.AddRange(context.hlnclase.Where(x => x.hlnprogtemaid == hlnprogtemaid && x.fecha == fecha.Date && x.horaini >= ca.horafin)
-                 .Select(x => new claseasg
-                 {
-                     horaini = x.horaini,
-                     horafin = x.horafin,
-                     busy = true
-                 }).ToList());
+                    ca.busy = true;
+                    claseasgs.Add(ca);
+                    if (process)
+                    {
+                        var aux = context.hlnclase.Where(x => x.hlnprogtemaid == hlnprogtemaid && x.fecha == fecha.Date && (x.horaini >= ca.horafin || (x.horaini < ca.horafin && x.horafin > ca.horafin)))
+                             .Select(x => new claseasg
+                             {
+                                 horaini = x.horaini,
+                                 horafin = x.horafin,
+                                 busy = true
+                             }).ToList();
+
+                        foreach (var item in aux)
+                        {
+                            if (item.horaini < ca.horafin)
+                            {
+                                ca = new claseasg();
+                                ca.horaini = f.TimeOfDay;
+                                ca.horafin = item.horafin;
+                                ca.busy = item.busy;
+                                claseasgs.Add(ca);
+                            }
+                            else
+                            {
+                                claseasgs.Add(item);
+                            }
+                        }
+                    }
+
+                }
+                else
+                {
+                    claseasgs = getclasesgs(hlnprogtemaid, fecha);
+                }
+
             }
             else
             {
-                claseasgs = context.hlnclase.Where(x => x.hlnprogtemaid == hlnprogtemaid && x.fecha == fecha.Date)
-                 .Select(x => new claseasg
-                 {
-                     horaini = x.horaini,
-                     horafin = x.horafin,
-                     busy = true
-                 }).ToList();
+                claseasgs = getclasesgs(hlnprogtemaid, fecha);
             }
 
             return claseasgs;
         }
 
+        private List<claseasg> getclasesgs(int hlnprogtemaid, DateTime fecha)
+        {
+            var claseasgs = context.hlnclase.Where(x => x.hlnprogtemaid == hlnprogtemaid && x.fecha == fecha.Date)
+                .Select(x => new claseasg
+                {
+                    horaini = x.horaini,
+                    horafin = x.horafin,
+                    busy = true
+                }).ToList();
 
-        DateTime RoundUp(DateTime dt, TimeSpan d)
+            return claseasgs;
+        }
+
+        private DateTime RoundUp(DateTime dt, TimeSpan d)
         {
             return new DateTime(((dt.Ticks + d.Ticks - 1) / d.Ticks) * d.Ticks);
         }
@@ -109,7 +153,6 @@ namespace Hallearn.Model.Model
 
             return aux.OrderBy(x => x.horaini).ToList();
         }
-
 
         public List<linetime> getClass(int hlnprogtemaid, DateTime fecha)
         {
