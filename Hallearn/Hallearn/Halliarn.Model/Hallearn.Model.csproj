@@ -60,6 +60,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Model\chatModels.cs" />
     <Compile Include="Model\ciudadModels.cs" />
     <Compile Include="Model\claseasgModels.cs" />
     <Compile Include="Model\claseModels.cs" />

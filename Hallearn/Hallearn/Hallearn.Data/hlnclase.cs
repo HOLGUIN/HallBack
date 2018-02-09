@@ -18,6 +18,7 @@ namespace Hallearn.Data
         public hlnclase()
         {
             this.hlnvideoclase = new HashSet<hlnvideoclase>();
+            this.hlnchat = new HashSet<hlnchat>();
         }
     
         public int hlnclaseid { get; set; }
@@ -35,5 +36,7 @@ namespace Hallearn.Data
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<hlnvideoclase> hlnvideoclase { get; set; }
         public virtual hlnprogtema hlnprogtema { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<hlnchat> hlnchat { get; set; }
     }
 }

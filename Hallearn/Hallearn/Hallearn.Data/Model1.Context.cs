@@ -35,5 +35,6 @@ namespace Hallearn.Data
         public virtual DbSet<hlnusuario> hlnusuario { get; set; }
         public virtual DbSet<hlnvideoclase> hlnvideoclase { get; set; }
         public virtual DbSet<hlnprogtema> hlnprogtema { get; set; }
+        public virtual DbSet<hlnchat> hlnchat { get; set; }
     }
 }
