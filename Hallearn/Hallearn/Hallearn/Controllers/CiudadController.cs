@@ -4,6 +4,7 @@ using System.Net;
 using System.Web.Http;
 using System.Web.Http.Cors;
 
+
 namespace Hallearn.Controllers
 {
 
@@ -17,7 +18,7 @@ namespace Hallearn.Controllers
         public IHttpActionResult get(int hlnciudadid)
         {
             ciudad ciudad = new ciudad();
-
+           
             try
             {
 

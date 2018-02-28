@@ -243,3 +243,4 @@ ModelManifest.xml
 
 # FAKE - F# Make
 .fake/
+/Hallearn/Hallearn/Hallearn/App_Data/uploads

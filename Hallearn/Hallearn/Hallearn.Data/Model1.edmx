@@ -5,6 +5,16 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="db_HallearnModel.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.6" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="hlnarchivo">
+          <Key>
+            <PropertyRef Name="hlnarchivoid" />
+          </Key>
+          <Property Name="hlnarchivoid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="titulo" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="filename" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="extension" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="hlnclaseid" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="hlnchat">
           <Key>
             <PropertyRef Name="hlnchatid" />
@@ -261,7 +271,20 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="fk_hnlarchivo_hlnclaseid">
+          <End Role="hlnclase" Type="Self.hlnclase" Multiplicity="1" />
+          <End Role="hlnarchivo" Type="Self.hlnarchivo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="hlnclase">
+              <PropertyRef Name="hlnclaseid" />
+            </Principal>
+            <Dependent Role="hlnarchivo">
+              <PropertyRef Name="hlnclaseid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="db_HallearnModelStoreContainer">
+          <EntitySet Name="hlnarchivo" EntityType="Self.hlnarchivo" Schema="db_hallearn" store:Type="Tables" />
           <EntitySet Name="hlnchat" EntityType="Self.hlnchat" Schema="db_hallearn" store:Type="Tables" />
           <EntitySet Name="hlnciudad" EntityType="Self.hlnciudad" Schema="db_hallearn" store:Type="Tables" />
           <EntitySet Name="hlnclase" EntityType="Self.hlnclase" Schema="db_hallearn" store:Type="Tables" />
@@ -316,6 +339,10 @@
           <AssociationSet Name="fk_hlnvideoclase_hlnusuarioid" Association="Self.fk_hlnvideoclase_hlnusuarioid">
             <End Role="hlnusuario" EntitySet="hlnusuario" />
             <End Role="hlnvideoclase" EntitySet="hlnvideoclase" />
+          </AssociationSet>
+          <AssociationSet Name="fk_hnlarchivo_hlnclaseid" Association="Self.fk_hnlarchivo_hlnclaseid">
+            <End Role="hlnclase" EntitySet="hlnclase" />
+            <End Role="hlnarchivo" EntitySet="hlnarchivo" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -378,6 +405,11 @@
             <End Role="hlnclase" EntitySet="hlnclase" />
             <End Role="hlnchat" EntitySet="hlnchat" />
           </AssociationSet>
+          <EntitySet Name="hlnarchivo" EntityType="db_HallearnModel.hlnarchivo" />
+          <AssociationSet Name="fk_hnlarchivo_hlnclaseid" Association="db_HallearnModel.fk_hnlarchivo_hlnclaseid">
+            <End Role="hlnclase" EntitySet="hlnclase" />
+            <End Role="hlnarchivo" EntitySet="hlnarchivo" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="hlnciudad">
           <Key>
@@ -408,6 +440,7 @@
           <NavigationProperty Name="hlnvideoclase" Relationship="db_HallearnModel.fk_hlnvideoclase_hlnclaseid" FromRole="hlnclase" ToRole="hlnvideoclase" />
           <NavigationProperty Name="hlnprogtema" Relationship="db_HallearnModel.fk_hlnclase_hlnprogtemaid" FromRole="hlnclase" ToRole="hlnprogtema" />
           <NavigationProperty Name="hlnchat" Relationship="db_HallearnModel.fk_hlnchat_hlnclaseid" FromRole="hlnclase" ToRole="hlnchat" />
+          <NavigationProperty Name="hlnarchivo" Relationship="db_HallearnModel.fk_hnlarchivo_hlnclaseid" FromRole="hlnclase" ToRole="hlnarchivo" />
         </EntityType>
         <EntityType Name="hlnconfig">
           <Key>
@@ -657,6 +690,29 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="hlnarchivo">
+          <Key>
+            <PropertyRef Name="hlnarchivoid" />
+          </Key>
+          <Property Name="hlnarchivoid" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="titulo" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="filename" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="extension" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="hlnclaseid" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="hlnclase" Relationship="db_HallearnModel.fk_hnlarchivo_hlnclaseid" FromRole="hlnarchivo" ToRole="hlnclase" />
+        </EntityType>
+        <Association Name="fk_hnlarchivo_hlnclaseid">
+          <End Type="db_HallearnModel.hlnclase" Role="hlnclase" Multiplicity="1" />
+          <End Type="db_HallearnModel.hlnarchivo" Role="hlnarchivo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="hlnclase">
+              <PropertyRef Name="hlnclaseid" />
+            </Principal>
+            <Dependent Role="hlnarchivo">
+              <PropertyRef Name="hlnclaseid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -795,6 +851,17 @@
                 <ScalarProperty Name="fecha" ColumnName="fecha" />
                 <ScalarProperty Name="mensaje" ColumnName="mensaje" />
                 <ScalarProperty Name="hlnchatid" ColumnName="hlnchatid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="hlnarchivo">
+            <EntityTypeMapping TypeName="db_HallearnModel.hlnarchivo">
+              <MappingFragment StoreEntitySet="hlnarchivo">
+                <ScalarProperty Name="hlnclaseid" ColumnName="hlnclaseid" />
+                <ScalarProperty Name="extension" ColumnName="extension" />
+                <ScalarProperty Name="filename" ColumnName="filename" />
+                <ScalarProperty Name="titulo" ColumnName="titulo" />
+                <ScalarProperty Name="hlnarchivoid" ColumnName="hlnarchivoid" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -22,6 +22,7 @@
         <AssociationConnector Association="db_HallearnModel.fk_hlnhorariotema_hlnprofesorid" />
         <AssociationConnector Association="db_HallearnModel.fk_hlnhorariotema_hlntemaid" />
         <EntityTypeShape EntityType="db_HallearnModel.hlnchat" Width="1.5" PointX="6.5" PointY="3.625" />
+        <EntityTypeShape EntityType="db_HallearnModel.hlnarchivo" Width="1.5" PointX="9.375" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
