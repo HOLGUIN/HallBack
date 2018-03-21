@@ -36,11 +36,10 @@ namespace Hallearn.Controllers
         [System.Web.Http.HttpGet]
         public IHttpActionResult get()
         {
-            MD5Hash ensure = new MD5Hash();
             try
             {
                 var usuarios = up.getusuarios();
-                return Ok(new { usuarios = usuarios });
+                return Ok(usuarios);
             }
             catch (Exception e) { return Content(HttpStatusCode.NotFound, "LNG_ERROR"); }
         }

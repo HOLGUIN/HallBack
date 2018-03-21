@@ -18,7 +18,7 @@ namespace Hallearn.Controllers
             return Ok();
         }
 
-        [HttpPost]
+        [HttpGet]
         public IHttpActionResult post(string usuario, string clave)
         {
 
